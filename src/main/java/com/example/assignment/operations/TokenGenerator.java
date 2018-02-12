@@ -1,4 +1,4 @@
-package com.example.assignment;
+package com.example.assignment.operations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.assignment.config.OperatorSelector;
+import com.example.assignment.Initializer;
 import com.example.assignment.model.Counter;
 import com.example.assignment.model.Customer;
 import com.example.assignment.model.ServiceRequest;
@@ -18,6 +18,11 @@ import com.example.assignment.model.Token;
 import com.example.assignment.repository.CounterRepository;
 import com.example.assignment.repository.TokenRepository;
 
+/**
+ * To generate token based on service requested by Customer
+ * @author juilykumari
+ *
+ */
 @Component
 public class TokenGenerator {
 	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);

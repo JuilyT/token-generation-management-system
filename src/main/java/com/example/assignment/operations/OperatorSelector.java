@@ -1,10 +1,15 @@
-package com.example.assignment.config;
+package com.example.assignment.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.assignment.model.Counter;
 
+/**
+ * Based on serviceType, customer has asked for, returns particular service counter operator
+ * @author juilykumari
+ *
+ */
 @Component
 public class OperatorSelector {
 

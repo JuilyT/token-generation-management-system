@@ -1,11 +1,10 @@
-package com.example.assignment.config;
+package com.example.assignment.operations;
 
 import java.sql.Timestamp;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.assignment.TokenGenerator;
 import com.example.assignment.enums.Status;
 import com.example.assignment.model.Counter;
 import com.example.assignment.model.Customer;
@@ -16,6 +15,11 @@ import com.example.assignment.repository.CustomerRepository;
 import com.example.assignment.repository.ServiceRequestRepository;
 import com.example.assignment.repository.TokenRepository;
 
+/**
+ * Concrete class to perform operations by counter and process token.
+ * @author juilykumari
+ *
+ */
 public abstract class AbstractCounterOperatorImpl implements CounterOperator {
 	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);
 	@Autowired
@@ -52,7 +56,6 @@ public abstract class AbstractCounterOperatorImpl implements CounterOperator {
 		ServiceRequest nextCustomerRequest = requestRepository.getActiveServiceRequestForCustomer(customer.getId());
 		customer.setActiveRequest(nextCustomerRequest);
 		counterRepository.save(counter);
-	
 
 		if (nextCustomerRequest==null) {
 			 LOGGER.info("No service to serve for this customer");

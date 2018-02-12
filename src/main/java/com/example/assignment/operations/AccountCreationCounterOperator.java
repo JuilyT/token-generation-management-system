@@ -1,11 +1,9 @@
-package com.example.assignment.config;
+package com.example.assignment.operations;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.assignment.TokenGenerator;
-import com.example.assignment.model.Customer;
 import com.example.assignment.model.Token;
 import com.example.assignment.repository.CustomerRepository;
 
