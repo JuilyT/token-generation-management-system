@@ -27,16 +27,21 @@ Swagger is integrated to the application. To view documentation, follow the belo
 # Assumption:
 - Bank is having multiple branches with existing customers. Services offered by branch is availed at specific counters and PREMIUM account holders have special counters for each those services.
  
+
 - Users having access to system at counters can access rest APIs for operating token at counters.
 
+
+- Could have used any **asynchronous messaging queues like RabbitMQ** but since requirement was not getting fit like we needed to show list of tokens under each counter with Apis.
+
 # Class Diagram:
+![alt text](src/main/resources/class-diagram.png)
 
 # Rest API's:
 /rest/api/banking
 
-1.URL: /counters
+1.URL: **/counters**
 
-Method : GET 
+Method : **GET** 
 
 Response : List {Counter} Gets statuses of all counters available
 
@@ -44,9 +49,9 @@ Response : List {Counter} Gets statuses of all counters available
 
 Assumption: Counters are available to service customer's requests if token is processed for the same and counter app is capable of triggering rest request.
 
-2.URL : /counters/type 
+2.URL : **/counters/type** 
 
-Method : GET 
+Method : **GET** 
 
 Response : List {Counter} Gets statuses of all counters available for particular service provided as parameter.
 
@@ -54,9 +59,9 @@ Response : List {Counter} Gets statuses of all counters available for particular
 
 Assumption: Counters are available to service customer's requests if token is processed for the same and counter app is capable of triggering rest request.
 
-3.URL: /token
+3.URL: **/token**
 
-Method : POST 
+Method : **POST** 
 
 Request Body : 
 
@@ -89,15 +94,15 @@ Request Body :
 
 If customer has multiple service requests, once service gets completed it automatically go for token generation for next request in the queue.
 
-4.URL: /counters/{id}
+4.URL: **/counters/{id}**
 
-Method : GET 
+Method : **GET** 
 
 Response: Info regarding counter along with service it offers and list of tokens to be processed.
 
-5.URL : /counters/{id}/operate
+5.URL : **/counters/{id}/operate**
 
-Method : PUT 
+Method : **PUT** 
 
 - Used by counter operator to operate services for each customer on token basis based on priority.
 
