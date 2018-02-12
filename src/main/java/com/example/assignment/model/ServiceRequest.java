@@ -18,6 +18,11 @@ import com.example.assignment.enums.ServiceType;
 import com.example.assignment.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Service info requested by Customer to bank branch
+ * @author juilykumari
+ *
+ */
 @Entity
 public class ServiceRequest implements Serializable {
 	private static final long serialVersionUID = 1L;

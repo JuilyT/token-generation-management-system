@@ -17,6 +17,11 @@ import javax.validation.constraints.NotNull;
 import com.example.assignment.enums.AccountType;
 import com.example.assignment.enums.ServiceType;
 
+/**
+ * Info for each customer associated with bank along with list of services 
+ * @author juilykumari
+ *
+ */
 @Entity
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,16 +44,13 @@ public class Customer implements Serializable {
 	private List<ServiceRequest> serviceRequests;
 	
 	public Customer() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String accountNo, String name, AccountType accountType, List<ServiceType> services) {
+	public Customer(String accountNo, String name, AccountType accountType) {
 		this.accountNo = accountNo;
 		this.name = name;
 		this.accountType = accountType;
 	}
-
-
 
 	public Integer getId() {
 		return id;

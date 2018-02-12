@@ -1,5 +1,10 @@
 package com.example.assignment.enums;
 
+/**
+ * Listing type of account of customers in the bank branch
+ * @author juilykumari
+ *
+ */
 public enum AccountType {
 	PREMIUM(1),
 	REGULAR(0);

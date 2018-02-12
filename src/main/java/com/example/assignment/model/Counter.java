@@ -20,6 +20,11 @@ import com.example.assignment.enums.AccountType;
 import com.example.assignment.enums.ServiceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Info regarding the counter which serves customers for their services on token basis.
+ * @author juilykumari
+ *
+ */
 @Entity
 public class Counter {
 	@Id

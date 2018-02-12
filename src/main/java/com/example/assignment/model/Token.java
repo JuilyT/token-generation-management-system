@@ -1,7 +1,5 @@
 package com.example.assignment.model;
 
-import static com.example.assignment.utility.Util.generateRandom;
-
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -20,6 +18,11 @@ import com.example.assignment.enums.AccountType;
 import com.example.assignment.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Token info assigned to each customer for their services and used by counter to operate.
+ * @author juilykumari
+ *
+ */
 @Entity
 public class Token {
 	@Id
@@ -43,7 +46,6 @@ public class Token {
 	ServiceRequest request;
 	
 	public Token() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Token(AccountType priority) {
