@@ -25,16 +25,31 @@ mvn install && java -jar target/token-generation-management-0.0.1-SNAPSHOT.jar
 Swagger is integrated to the application. To view documentation, follow the below url after running the application http://localhost:8080/swagger-ui.html
 
 # Assumption:
-- Bank is having multiple branches with existing customers. Services offered by branch is availed at specific counters and PREMIUM account holders have special counters for each those services.
+- Bank is having multiple branches with existing customers and some new customers. Services offered by branch is availed at specific counters and PREMIUM account holders have special counters for each those services.
  
+
+- Token will be generated for each service requested by customer and will be assigned to some counter specific to service.
+
 
 - Users having access to system at counters can access rest APIs for operating token at counters.
 
 
-- Could have used any **asynchronous messaging queues like RabbitMQ** but since requirement was not getting fit like we needed to show list of tokens under each counter with Apis.
+- Existing customers can be services directly on the basis of service requests they are asking for.
+
+
+- For new customer, account will be created first, and then other services will be processed based on requests.
+
+
+- Multiple requests can processed in chain automatically one after the other based on token status at each service counter.
+
+
+- Could have used any **asynchronous messaging queues like RabbitMQ** but since requirement was not fitting into it, like we needed to show list of tokens under each counter with Apis.
 
 # Class Diagram:
 ![alt text](src/main/resources/class-diagram.png)
+
+# Entity Relationship Diagram
+![alt text](src/main/resources/DB_modelling.png)
 
 # Rest API's:
 /rest/api/banking
