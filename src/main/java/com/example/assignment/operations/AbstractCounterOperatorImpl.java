@@ -24,7 +24,7 @@ import com.example.assignment.repository.TokenRepository;
  *
  */
 public abstract class AbstractCounterOperatorImpl implements CounterOperator {
-	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AbstractCounterOperatorImpl.class);
 	@Autowired
 	TokenGenerator tokenGenerator;
 	@Autowired

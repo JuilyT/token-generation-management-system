@@ -1,5 +1,11 @@
 package com.example.assignment.exception;
 
+/**
+ * Wrapper containing exception/error info usable for client when handled in the application. 
+ *  
+ * @author juilykumari
+ *
+ */
 public class ExceptionJSONInfo {
 	private int statusCode;
 	private String message;

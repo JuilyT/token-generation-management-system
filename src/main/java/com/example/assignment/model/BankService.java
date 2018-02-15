@@ -11,7 +11,8 @@ import javax.persistence.OrderColumn;
 
 /**
  * Wrapper containing all the tasks involved for each service 
- * select s.id, s.name, st.transactions_order, t.name FROM service s INNER JOIN service_transactions st ON s.id=st.service_id INNER JOIN transaction t ON st.transactions_id=t.id ORDER BY s.id, st.transactions_order
+ * Ex: Demand Draft service can have tasks: submit, collect DD
+ * 
  * @author juilykumari
  *
  */
@@ -86,6 +87,10 @@ public class BankService {
 		return "Service [id=" + id + ", name=" + name + ", transactions=" + transactions + "]";
 	}
 
+	/**
+	 * This is some assumed services possible in bank branches, will vary based on services in the bank branch
+	 * @return
+	 */
 	public static List<BankService> getServices() {
 		List<BankService> services = new ArrayList<>();
 		Map<Integer, ServiceType> map = ServiceType.getTX();
