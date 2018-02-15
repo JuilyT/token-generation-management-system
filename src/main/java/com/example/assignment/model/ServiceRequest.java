@@ -1,6 +1,7 @@
 package com.example.assignment.model;
 
 import java.io.Serializable;
+
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -13,8 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.example.assignment.enums.ServiceType;
 import com.example.assignment.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,14 +29,15 @@ public class ServiceRequest implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(length = 15)
-	private ServiceType serviceType;
+	@ManyToOne
+	private BankService service;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
+
+	private int transactionIndex = 0;
 
 	private Timestamp creationTime = new Timestamp(System.currentTimeMillis());
 
@@ -104,12 +104,12 @@ public class ServiceRequest implements Serializable {
 		this.id = id;
 	}
 
-	public ServiceType getServiceType() {
-		return serviceType;
+	public BankService getService() {
+		return service;
 	}
 
-	public void setServiceType(ServiceType serviceType) {
-		this.serviceType = serviceType;
+	public void setService(BankService service) {
+		this.service = service;
 	}
 
 	public Customer getCustomer() {
@@ -120,4 +120,11 @@ public class ServiceRequest implements Serializable {
 		this.customer = customer;
 	}
 
+	public int getTransactionIndex() {
+		return transactionIndex;
+	}
+
+	public void setTransactionIndex(int transactionIndex) {
+		this.transactionIndex = transactionIndex;
+	}
 }

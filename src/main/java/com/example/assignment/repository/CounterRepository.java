@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import com.example.assignment.enums.AccountType;
-import com.example.assignment.enums.ServiceType;
 import com.example.assignment.model.Counter;
+import com.example.assignment.model.ServiceType;
 
 public interface CounterRepository extends CrudRepository<Counter, Integer>{
 	public List<Counter> findByServiceType(ServiceType serviceType);

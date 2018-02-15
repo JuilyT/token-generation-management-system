@@ -1,14 +1,11 @@
-package com.example.assignment.operations;
+package com.example.assignment.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.example.assignment.enums.ServiceType;
 import com.example.assignment.model.Counter;
-import com.example.assignment.model.Customer;
-import com.example.assignment.model.Token;
 
-public interface BankingService {
+public interface CounterService {
 	/**
 	 * Returns list of all counters available for multiple services along with list of token assigned.
 	 * 
@@ -27,15 +24,7 @@ public interface BankingService {
 	 * @param type
 	 * @return
 	 */
-	public List<Counter> getServiceCounters(ServiceType type);
-
-	/**
-	 * Creates token based on customer's priority and service requested
-	 * @param customer
-	 * @return
-	 * @throws Exception
-	 */
-	public Token process(Customer customer) throws Exception;
+	public List<Counter> getServiceCounters(int txId);
 
 	/**
 	 * Used by counter operator to operate on each service token present in queue.

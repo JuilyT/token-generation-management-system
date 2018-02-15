@@ -1,23 +1,25 @@
 package com.example.assignment.model;
 
 import java.beans.Transient;
+
 import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.util.CollectionUtils;
 
 import com.example.assignment.enums.AccountType;
-import com.example.assignment.enums.ServiceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -30,15 +32,13 @@ public class Counter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	@ManyToOne
+	private ServiceType serviceType;
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private ServiceType serviceType;
+	@Column(length = 15)
 	private AccountType priority = AccountType.REGULAR;
-	 @OneToMany(
-		        mappedBy = "counter", 
-		        cascade = CascadeType.ALL, 
-		        orphanRemoval = true
-		    )
+	@OneToMany(mappedBy = "counter", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Token> tokens;
 
 	public Counter() {
@@ -101,7 +101,7 @@ public class Counter {
 	public void setPriority(AccountType priority) {
 		this.priority = priority;
 	}
-	
+
 	@JsonIgnore
 	public int getRank() {
 		if (CollectionUtils.isEmpty(tokens)) {
@@ -131,6 +131,4 @@ public class Counter {
 			return false;
 		return true;
 	}
-	
-	
 }

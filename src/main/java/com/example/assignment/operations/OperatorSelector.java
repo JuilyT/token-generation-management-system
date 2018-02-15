@@ -22,18 +22,19 @@ public class OperatorSelector {
 	@Autowired
 	WithdrawCounterOperator withdrawCounterOperator;
 	
+	@Autowired
+	DDCounterOperator ddCounterOperator;
 	
 	public CounterOperator getOperator(Counter counter) {
-		switch (counter.getServiceType()) {
-		case DEPOSIT:
+		switch (counter.getServiceType().getName()) {
+		case "Deposit":
 			return depositCounterOperator;
-		case ACCOUNT_CREATION:
-			return accountCreationCounterOperator;
-		case WITHDRAWL:
+		case "Withdraw":
 			return withdrawCounterOperator;
-
+		case "Collect DD" :	
+			return ddCounterOperator;
 		default:
-			throw new IllegalArgumentException("Currently counter support only CREATE/WITHDRAW/DEPOSIT");
+			throw new IllegalArgumentException("Currently counter support only CollectDD/WITHDRAW/DEPOSIT");
 		}
 	}
 }

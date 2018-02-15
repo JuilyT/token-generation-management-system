@@ -2,7 +2,6 @@ package com.example.assignment.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-
 import com.example.assignment.enums.AccountType;
-import com.example.assignment.enums.ServiceType;
 
 /**
  * Info for each customer associated with bank along with list of services 
@@ -118,12 +115,4 @@ public class Customer implements Serializable {
 	public void setServiceRequests(List<ServiceRequest> serviceRequests) {
 		this.serviceRequests = serviceRequests;
 	}
-	
-	public ServiceType getActiveService() {
-		if (activeRequest == null) {
-			return null;
-		}
-		return activeRequest.getServiceType();
-	}
-
 }

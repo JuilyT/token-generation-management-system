@@ -1,4 +1,4 @@
-package com.example.assignment.operations;
+package com.example.assignment.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,19 +7,18 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.assignment.enums.ServiceType;
+import com.example.assignment.manager.ServiceManager;
 import com.example.assignment.model.Counter;
-import com.example.assignment.model.Customer;
-import com.example.assignment.model.ServiceRequest;
-import com.example.assignment.model.Token;
+import com.example.assignment.operations.OperatorSelector;
+import com.example.assignment.operations.TokenGenerator;
 import com.example.assignment.repository.CounterRepository;
 import com.example.assignment.repository.CustomerRepository;
 import com.example.assignment.repository.ServiceRequestRepository;
 
 @Service
-public class BankingServiceImpl implements BankingService{
+public class CounterServiceImpl implements CounterService{
 	public static final int LENGTH = 12;
-	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(BankingServiceImpl.class);
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CounterServiceImpl.class);
 	@Autowired
 	TokenGenerator tokenGenerator;
 	@Autowired
@@ -30,6 +29,8 @@ public class BankingServiceImpl implements BankingService{
 	CustomerRepository customerRepository;
 	@Autowired
 	ServiceRequestRepository requestRepository;
+	@Autowired
+	ServiceManager serviceManager;
 	
 	@Override
 	public List<Counter> getCounters() {
@@ -62,36 +63,9 @@ public class BankingServiceImpl implements BankingService{
 	 * @return
 	 */
 	@Override
-	public List<Counter> getServiceCounters(ServiceType type) {
-		return counterRepository.findByServiceType(type);
+	public List<Counter> getServiceCounters(int serviceTypeId) {
+		return counterRepository.findByServiceType(serviceManager.getServiceTypeById(serviceTypeId));
 	}
-	
-	/**
-	 * Creates token based on customer's priority and service requested
-	 * @param customer
-	 * @return
-	 * @throws Exception
-	 */
-	@Override
-	public Token process(Customer customer) throws Exception {
-		 if(customer.isNewCustomer()) {
-			 customerRepository.save(customer);
-		 }		 
-		 saveServices(customer);
-		 ServiceRequest nextCustomerRequest = requestRepository.getActiveServiceRequestForCustomer(customer.getId());
-		 customer.setActiveRequest(nextCustomerRequest);
-		 customerRepository.save(customer);
-		 
-		 return tokenGenerator.generateToken(nextCustomerRequest);
-	 }
-
-	 private void saveServices(Customer customer) {
-		 List<ServiceRequest> requests = customer.getServiceRequests();
-			for(ServiceRequest request : requests) {
-				request.setCustomer(customer);
-			}
-			requestRepository.save(requests);
-	 }
 
 	 /**
 	 * Used by counter operator to operate on each service token present in queue.

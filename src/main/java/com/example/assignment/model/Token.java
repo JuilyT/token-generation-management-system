@@ -100,6 +100,9 @@ public class Token {
 		this.request = request;
 	}
 	
+	/*
+	 * Returns token for customer's request
+	 */
 	public static Token getTokenForCustomer(ServiceRequest request) {
 		Token token = new Token();
 		token.setPriority(request.getCustomer().getAccountType());
