@@ -25,6 +25,9 @@ public class ServiceManagerImpl implements ServiceManager {
 	@Autowired
 	TokenGenerator tokenGenerator;
 	
+	/**
+	 * Gets the services provided by bank by id.
+	 */
 	@Override
 	public BankService getBankServiceById(final int id) {
 		BankService s = servicesRepository.findOne(id);
@@ -34,6 +37,9 @@ public class ServiceManagerImpl implements ServiceManager {
 		return s;
 	}
 	
+	/**
+	 * Gets the service requests by customer by id.
+	 */
 	@Override
 	public ServiceRequest getRequestById(final int id) {
 		ServiceRequest req = requestRepository.findOne(id);
@@ -43,6 +49,9 @@ public class ServiceManagerImpl implements ServiceManager {
 		return req;
 	}
 	
+	/**
+	 * Fetches the current service task out of request by id. 
+	 */
 	@Override
 	public ServiceType getActiveServiceTypeForRequest(final int id) {
 		ServiceRequest req = getRequestById(id);
@@ -60,6 +69,9 @@ public class ServiceManagerImpl implements ServiceManager {
 		return s;
 	}
 
+	/**
+	 * Generates token based on service requested by customer.
+	 */
 	@Override
 	@Transactional
 	public Token generateTokenForServiceRequest(ServiceRequest request) throws Exception {
