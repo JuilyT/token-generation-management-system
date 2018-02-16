@@ -53,10 +53,10 @@ Swagger is integrated to the application. To view documentation, follow the belo
 - Could have used any **asynchronous messaging queues like RabbitMQ** but since requirement was not fitting into it, like we needed to show list of tokens under each counter with Apis.
 
 # Class Diagram:
-![alt text](src/main/resources/class-diagram.png)
+![alt text](src/main/resources/token_management_class_diagram_2.png)
 
 # Entity Relationship Diagram
-![alt text](src/main/resources/DB_modelling.png)
+![alt text](src/main/resources/DB_modelling_token_management.png)
 
 # Rest API's:
 /rest/api/banking
