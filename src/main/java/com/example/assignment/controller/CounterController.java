@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.assignment.exception.CounterServiceException;
 import com.example.assignment.model.Counter;
 import com.example.assignment.service.CounterService;
 
@@ -41,9 +42,10 @@ public class CounterController {
 	  * Gets the counter info based on ID passed as parameter.
 	  * @param counterId
 	  * @return
+	 * @throws CounterServiceException 
 	  */
 	 @RequestMapping(value="/{id}", method=RequestMethod.GET)
-	 public Counter getSingleCounter(@PathVariable("id") int counterId) {
+	 public Counter getSingleCounter(@PathVariable("id") int counterId) throws CounterServiceException {
 		 if (counterId < 1) {
 			 throw new IllegalArgumentException("Invalid counter");
 		 }

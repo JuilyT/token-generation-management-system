@@ -3,6 +3,7 @@ package com.example.assignment.service;
 import java.util.List;
 import java.util.Map;
 
+import com.example.assignment.exception.CounterServiceException;
 import com.example.assignment.model.Counter;
 
 public interface CounterService {
@@ -31,12 +32,13 @@ public interface CounterService {
 	 * @param counterId
 	 * @throws Exception
 	 */
-	public void operate(int counterId) throws Exception;
+	public void operate(int counterId) throws CounterServiceException;
 
 	/**
 	 * Gets counter info based on Id.
 	 * @param counterId
 	 * @return
+	 * @throws CounterServiceException 
 	 */
-	Counter getCounterById(int counterId);
+	Counter getCounterById(int counterId) throws CounterServiceException;
 }

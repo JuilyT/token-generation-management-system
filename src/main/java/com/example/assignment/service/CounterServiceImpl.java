@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.assignment.exception.CounterServiceException;
 import com.example.assignment.manager.ServiceManager;
 import com.example.assignment.model.Counter;
 import com.example.assignment.operations.OperatorSelector;
@@ -41,13 +42,14 @@ public class CounterServiceImpl implements CounterService{
 	 * Gets counter info based on Id.
 	 * @param counterId
 	 * @return
+	 * @throws CounterServiceException 
 	 */
 	@Override
-	public Counter getCounterById(int counterId) {
+	public Counter getCounterById(int counterId) throws CounterServiceException {
 		Counter counter = counterRepository.findOne(counterId);
 		 if(counter == null) {
 			 LOGGER.error("No counter found for id:{}", counterId);
-			 throw new IllegalArgumentException("No counter found for id:"+ counterId);
+			 throw new CounterServiceException("No counter found for id:"+ counterId);
 		 }
 		 return counter;
 	}
@@ -73,8 +75,12 @@ public class CounterServiceImpl implements CounterService{
 	 * @throws Exception
 	 */
 	@Override
-	public void operate(final int counterId) throws Exception {
+	public void operate(final int counterId) throws CounterServiceException {
 		 Counter counter = getCounterById(counterId);
-		 operatorSelector.getOperator(counter).operate(counter);
+		 try {
+			operatorSelector.getOperator(counter).operate(counter);
+		} catch (Exception e) {
+			throw new CounterServiceException(e.getMessage());
+		}
 	}
 }

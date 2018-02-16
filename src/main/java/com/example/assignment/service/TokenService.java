@@ -1,5 +1,6 @@
 package com.example.assignment.service;
 
+import com.example.assignment.exception.TokenServiceException;
 import com.example.assignment.model.Customer;
 import com.example.assignment.model.Token;
 
@@ -16,6 +17,7 @@ public interface TokenService {
 	 * Gets customer info based on Id.
 	 * @param counterId
 	 * @return
+	 * @throws TokenServiceException 
 	 */
-	Customer getCustomerById(int id);
+	Customer getCustomerById(int id) throws TokenServiceException;
 }

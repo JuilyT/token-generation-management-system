@@ -76,6 +76,7 @@ public abstract class AbstractCounterOperatorImpl implements CounterOperator {
 		}
 	}
 	
+	@Transactional
 	private void markActiveTokenCompleted(Token activeToken) {
 		activeToken.setStatus(Status.COMPLETED);
 		activeToken.setLastUpdated(new Timestamp(System.currentTimeMillis()));

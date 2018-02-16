@@ -1,5 +1,6 @@
 package com.example.assignment.manager;
 
+import com.example.assignment.exception.TokenServiceException;
 import com.example.assignment.model.BankService;
 import com.example.assignment.model.ServiceRequest;
 import com.example.assignment.model.ServiceType;
@@ -14,5 +15,5 @@ public interface ServiceManager {
 
 	ServiceType getServiceTypeById(int id);
 	
-	Token generateTokenForServiceRequest(ServiceRequest request) throws Exception;
+	Token generateTokenForServiceRequest(ServiceRequest request) throws TokenServiceException;
 }

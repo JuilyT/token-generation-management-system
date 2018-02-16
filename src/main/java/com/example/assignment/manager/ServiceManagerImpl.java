@@ -5,6 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.assignment.exception.TokenGenerationException;
+import com.example.assignment.exception.TokenServiceException;
 import com.example.assignment.model.BankService;
 import com.example.assignment.model.ServiceRequest;
 import com.example.assignment.model.ServiceType;
@@ -74,7 +76,13 @@ public class ServiceManagerImpl implements ServiceManager {
 	 */
 	@Override
 	@Transactional
-	public Token generateTokenForServiceRequest(ServiceRequest request) throws Exception {
-		return tokenGenerator.generateToken(request);		
+	public Token generateTokenForServiceRequest(ServiceRequest request) throws TokenServiceException {
+		Token token = null;
+		try {
+			token = tokenGenerator.generateToken(request);
+		} catch (TokenGenerationException e) {
+			throw new TokenServiceException(e.getMessage());
+		}
+		return token;		
 	}
 }

@@ -1,19 +1,18 @@
 package com.example.assignment.operations;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.transaction.Transactional;
-
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.example.assignment.Initializer;
+import com.example.assignment.exception.TokenGenerationException;
 import com.example.assignment.manager.ServiceManager;
 import com.example.assignment.model.Counter;
 import com.example.assignment.model.Customer;
@@ -48,10 +47,10 @@ public class TokenGenerator {
 	 * @return
 	 * @throws Exception
 	 */
-	public Token generateToken(ServiceRequest serviceRequest) throws Exception {
+	public Token generateToken(ServiceRequest serviceRequest) throws TokenGenerationException {
 		if (null == serviceRequest) {
 			LOGGER.info("No service to serve for this customer");
-			throw new IllegalArgumentException("No service to serve for this customer");
+			throw new TokenGenerationException("No service to serve for this customer");
 		}
 		
 		Token token = getTokenForRequest(serviceRequest); 
@@ -67,10 +66,8 @@ public class TokenGenerator {
 	private Token getTokenForRequest(ServiceRequest serviceRequest) {
 		Token existing = tokenRepository.findByRequest(serviceRequest);
 		if (null == existing) {
-			LOGGER.info("Token can't be generated, no service to serve for this customer");
-			throw new IllegalArgumentException("Token can't be generated, no service to serve for this customer");
+			existing = Token.getTokenForCustomer(serviceRequest);
 		}
-		existing = Token.getTokenForCustomer(serviceRequest);
 		existing.setCounter(null);
 		return existing;
 	}
@@ -78,7 +75,7 @@ public class TokenGenerator {
 	/*
 	 * Assigns generated token to service counter as per availability.
 	 */
-	private Counter assignTokenToCounter(Token token, Customer customer) throws Exception {
+	private Counter assignTokenToCounter(Token token, Customer customer) throws TokenGenerationException {
 		Counter minCounter = getCounterWithMinRank(customer);
 
 		int minIndex = minCounter.getRank();
@@ -96,13 +93,13 @@ public class TokenGenerator {
 	/*
 	 * Evaluates min rank for each counter as customer's service token and returns the most available counter.
 	 */
-	private Counter getCounterWithMinRank(Customer customer) throws Exception {
+	private Counter getCounterWithMinRank(Customer customer) throws TokenGenerationException {
 		
 		ServiceType type = serviceManager.getActiveServiceTypeForRequest(customer.getActiveRequest().getId());
-		List<Counter> serviceCounters = counterRepository.findByServiceTypeAndPriority(type, customer.getAccountType());
-		if (serviceCounters.isEmpty()) {
+		List<Counter> serviceCounters = counterRepository.findByServiceTypeAndPriority(type.getId(), customer.getAccountType());
+		if (CollectionUtils.isEmpty(serviceCounters)) {
 			LOGGER.info("No counter available for this service for now. Please try again.");
-			throw new Exception("No counter available for this service for now. Please try again.");
+			throw new TokenGenerationException("No counter available for this service for now. Please try again.");
 		}
 
 		if (serviceCounters.size() == 1) {

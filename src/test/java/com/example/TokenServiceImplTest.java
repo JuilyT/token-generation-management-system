@@ -1,6 +1,5 @@
 package com.example;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +46,7 @@ public class TokenServiceImplTest {
 		cust.setAddress("Panjagutta");
 		cust.setId(66436);
 		cust.setServiceRequests(services);
+		cust.setActiveRequest(request);
 		Mockito.when(requestRepository.save(services)).thenReturn(services);
 		Mockito.when(requestRepository.getActiveServiceRequestForCustomer(1)).thenReturn(request);
 		Mockito.when(customerRepository.save(cust)).thenReturn(cust);

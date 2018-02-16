@@ -1,5 +1,8 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.assignment.BankingApplication;
 import com.example.assignment.enums.AccountType;
+import com.example.assignment.exception.CounterServiceException;
+import com.example.assignment.model.BankService;
 import com.example.assignment.model.Counter;
 import com.example.assignment.model.Customer;
+import com.example.assignment.model.ServiceRequest;
 import com.example.assignment.model.ServiceType;
 import com.example.assignment.operations.TokenGenerator;
 import com.example.assignment.repository.CounterRepository;
@@ -36,14 +42,14 @@ public class CounterServiceImplTest {
     @MockBean
     TokenGenerator tokenGenerator;
     
-	@Test(expected = IllegalArgumentException.class)
-    public void throwIfNoCounterExists(){
+	@Test(expected = CounterServiceException.class)
+    public void throwIfNoCounterExists() throws CounterServiceException{
         Mockito.when(counterRepository.findOne(1)).thenReturn(null);
         counterService.getCounterById(11);
     }
 	
 	@Test
-    public void testGetCounterById() throws JsonProcessingException{
+    public void testGetCounterById() throws JsonProcessingException, CounterServiceException{
 		ServiceType depositService = new ServiceType(2, "DEPOSIT");
         Mockito.when(counterRepository.findOne(1)).thenReturn(new Counter(1, depositService));
         Counter counter = counterService.getCounterById(1);
@@ -52,6 +58,11 @@ public class CounterServiceImplTest {
         Customer cust = new Customer("123456789102", "John Doe", AccountType.PREMIUM);
 		cust.setAddress("Panjagutta");
 		cust.setId(66436);
+		List<ServiceRequest> requests = new ArrayList<>();
+		ServiceRequest req = new ServiceRequest();
+		req.setService(BankService.getServices().get(0));
+		requests.add(req);
+		cust.setServiceRequests(requests);
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println(mapper.writeValueAsString(cust));
     }

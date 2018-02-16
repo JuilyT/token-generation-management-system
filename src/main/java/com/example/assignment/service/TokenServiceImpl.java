@@ -1,15 +1,12 @@
 package com.example.assignment.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.assignment.exception.TokenServiceException;
 import com.example.assignment.manager.ServiceManager;
 import com.example.assignment.model.Customer;
-import com.example.assignment.model.ServiceRequest;
 import com.example.assignment.model.Token;
-import com.example.assignment.operations.OperatorSelector;
 import com.example.assignment.operations.TokenGenerator;
 import com.example.assignment.repository.CustomerRepository;
 import com.example.assignment.repository.ServiceRequestRepository;
@@ -37,7 +34,7 @@ public class TokenServiceImpl implements TokenService {
 	 * @throws Exception
 	 */
 	@Override
-	public Token process(Customer customer) throws Exception {
+	public Token process(Customer customer) throws TokenServiceException {
 		 if(customer.isNewCustomer()) {
 			 customerRepository.save(customer);
 		 }
@@ -46,10 +43,10 @@ public class TokenServiceImpl implements TokenService {
 	 }
 	 
 	 @Override
-		public Customer getCustomerById(final int id) {
+		public Customer getCustomerById(final int id) throws TokenServiceException {
 			Customer cust = customerRepository.findOne(id);
 			if(null == cust) {
-				throw new IllegalArgumentException("No customer found for id :"+ id);
+				throw new TokenServiceException("No customer found for id :"+ id);
 			}
 			return cust;
 		}
