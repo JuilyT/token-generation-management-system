@@ -13,8 +13,10 @@ public class AccountCreationCounterOperator extends AbstractCounterOperatorImpl 
 	@Autowired
 	CustomerRepository customerRepository;
 
-	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AccountCreationCounterOperator.class);
 
 	@Override
-	protected void performSpecificTask(Token activeToken) {}
+	protected void performSpecificTask(Token activeToken) {
+		LOGGER.info("account created for token :{}", activeToken);
+	}
 }

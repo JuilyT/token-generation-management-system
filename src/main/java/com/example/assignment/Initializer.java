@@ -20,7 +20,6 @@ import com.example.assignment.enums.AccountType;
 import com.example.assignment.model.BankService;
 import com.example.assignment.model.Counter;
 import com.example.assignment.model.Customer;
-import com.example.assignment.model.ServiceRequest;
 import com.example.assignment.model.ServiceType;
 import com.example.assignment.repository.CounterRepository;
 import com.example.assignment.repository.CustomerRepository;

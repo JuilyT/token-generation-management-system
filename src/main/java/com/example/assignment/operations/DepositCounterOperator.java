@@ -9,7 +9,7 @@ import com.example.assignment.model.Token;
 @Component
 public class DepositCounterOperator extends AbstractCounterOperatorImpl {
 
-	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DepositCounterOperator.class);
 
 	@Override
 	protected void performSpecificTask(Token activeToken) {

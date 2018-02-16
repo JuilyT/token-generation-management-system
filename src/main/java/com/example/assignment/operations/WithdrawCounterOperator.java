@@ -8,7 +8,7 @@ import com.example.assignment.model.Token;
 
 @Component
 public class WithdrawCounterOperator  extends AbstractCounterOperatorImpl {
-	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TokenGenerator.class);
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(WithdrawCounterOperator.class);
 
 	@Override
 	protected void performSpecificTask(Token activeToken) {
